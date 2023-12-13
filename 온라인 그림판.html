@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>온라인 그림판</title>
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    canvas {
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="drawingCanvas" width="800" height="600"></canvas>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var canvas = document.getElementById("drawingCanvas");
+    var context = canvas.getContext("2d");
+
+    var isDrawing = false;
+
+    canvas.addEventListener("mousedown", function(e) {
+      isDrawing = true;
+      draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop, false);
+    });
+
+    canvas.addEventListener("mousemove", function(e) {
+      if (!isDrawing) return;
+      draw(e.clientX - canvas.offsetLeft, e.clientY - canvas.offsetTop, true);
+    });
+
+    canvas.addEventListener("mouseup", function() {
+      isDrawing = false;
+      context.beginPath();
+    });
+
+    function draw(x, y, isDrawing) {
+      if (!isDrawing) {
+        context.beginPath();
+      }
+      context.lineWidth = 5;
+      context.lineCap = "round";
+      context.strokeStyle = "#000";
+
+      context.lineTo(x, y);
+      context.stroke();
+      context.moveTo(x, y);
+    }
+  });
+</script>
+
+</body>
+</html>
