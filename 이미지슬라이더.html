@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .slider-container {
+      width: 80%;
+      margin: auto;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .slider {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .slider img {
+      width: 100%;
+      height: auto;
+    }
+
+    .prev-btn,
+    .next-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .prev-btn {
+      left: 10px;
+    }
+
+    .next-btn {
+      right: 10px;
+    }
+  </style>
+  <title>이미지 슬라이더</title>
+</head>
+<body>
+
+<div class="slider-container">
+  <div class="slider">
+    <img src="1213.jpg" alt="Image 1">
+    <img src="12132.jpeg" alt="Image 2">
+    <img src="12133.jpeg" alt="Image 3">
+    <!-- 추가 이미지들 -->
+  </div>
+  <button class="prev-btn" onclick="changeSlide(-1)">이전</button>
+  <button class="next-btn" onclick="changeSlide(1)">다음</button>
+</div>
+
+<script>
+  var currentIndex = 0;
+
+  function showSlide(index) {
+    var slides = document.querySelector('.slider');
+    var totalSlides = slides.children.length;
+
+    if (index < 0) {
+      index = totalSlides - 1;
+    } else if (index >= totalSlides) {
+      index = 0;
+    }
+
+    var translateValue = -index * 100 + '%';
+    slides.style.transform = 'translateX(' + translateValue + ')';
+    currentIndex = index;
+  }
+
+  function changeSlide(direction) {
+    showSlide(currentIndex + direction);
+  }
+</script>
+
+</body>
+</html>
